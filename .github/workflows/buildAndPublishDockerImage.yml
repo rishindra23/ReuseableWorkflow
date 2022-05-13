@@ -14,7 +14,7 @@ on:
         type: string
       CHART_NAME:
         required: true
-        type: string
+	type: string
       CHART_REPO_NAME:
         required: true
         type: string
