@@ -5,16 +5,16 @@ on:
     inputs:
       APP_NAME:
         required: true
-	type: string
+        type: string
       PROJECT_NAME:
         required: true
-	type: string
+        type: string
       REPO_NAME:
-	required: true
+        required: true
         type: string
       CHART_NAME:
         required: true
-	type: string
+        type: string
       CHART_REPO_NAME:
         required: true
         type: string
