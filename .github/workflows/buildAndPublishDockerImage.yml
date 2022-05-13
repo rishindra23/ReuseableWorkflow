@@ -3,26 +3,26 @@ name: 'Create and Publish Docker Image to Harbor Repository'
 on:
   workflow_call:
     inputs:
-	  APP_NAME:
-	    required: true
-		type: string
-	  PROJECT_NAME:
-	    required: true
-		type: string
-	  REPO_NAME:
-	    required: true
+      APP_NAME:
+        required: true
+	type: string
+      PROJECT_NAME:
+        required: true
+	type: string
+      REPO_NAME:
+	required: true
         type: string
       CHART_NAME:
         required: true
         type: string
-      CHART_REPO_NAME
+      CHART_REPO_NAME:
         required: true
         type: string
     secrets:
       HARBOR_USERNAME:
         required: true
       HARBOR_PASSWORD:
-	    required: true
+        required: true
 
 jobs:
   build:
