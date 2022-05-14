@@ -20,7 +20,7 @@ on:
         type: string
       REPO_URL:
         required: true
-	type: string
+        type: string
     secrets:
       HARBOR_USERNAME:
         required: true
