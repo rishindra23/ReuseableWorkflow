@@ -23,6 +23,8 @@ on:
         required: true
       HARBOR_PASSWORD:
         required: true
+      github_token:
+        required: true
 
 
 jobs:
@@ -63,43 +65,11 @@ jobs:
       - name: Docker image build
         run: |
           docker build -t ${{inputs.APP_NAME}} .  
-          
-      - name: Tag Docker Image and Push to Harbor
+      
+      - name: Get build number
         run: |
-          docker tag ${APP_NAME} harbor.metabob.com/${{inputs.PROJECT_NAME}}/${{inputs.REPO_NAME}}:${{ steps.get-tag.outputs.tag }}
-          docker push harbor.metabob.com/${{inputs.PROJECT_NAME}}/${{inputs.REPO_NAME}}:${{ steps.get-tag.outputs.tag }} 
-            
-          
-      - name: Pull Helm chart from Harbor
-        run: |
-          helm repo add harbor https://harbor.metabob.com/chartrepo/${{inputs.CHART_REPO_NAME}} --username ${{ secrets.HARBOR_USERNAME }}  --password ${{ secrets.HARBOR_PASSWORD }}
-          helm pull harbor/${{inputs.CHART_NAME}}
-          mkdir -p ${{inputs.CHART_NAME}}
-          tar xvfz ${{inputs.CHART_NAME}}-*.tgz ${{inputs.CHART_NAME}}/
-          ls -a
-          
-      - name: Updating Helm Chart Values.yaml file
-        uses: rishindra23/helm-set-image-tag-action@main
-        with:
-          values_files: ${{inputs.CHART_NAME}}/values-integration.yaml
-          tag_keys: .image.tag
-          tag_value: ${{ steps.get-tag.outputs.tag }}
-          
-          
-      - name: Updating Helm chart.yaml file
-        uses: rishindra23/helm-set-image-tag-action@main
-        with:
-          values_files: ${{inputs.CHART_NAME}}/Chart.yaml
-          tag_keys: .version,.appVersion
-          tag_value: ${{ steps.get-tag.outputs.tag }}
-          
-          
-      - name: Pushing Updated helm chart in Harbor
-        run: |
-          ls -a
-          tar -zcvf ${{inputs.CHART_NAME}}.tar.gz ${{inputs.CHART_NAME}}
-          helm cm-push -f ${{inputs.CHART_NAME}}.tar.gz https://harbor.metabob.com/chartrepo/${{inputs.PROJECT_NAME}} --username ${{ secrets.HARBOR_USERNAME }}  --password ${{ secrets.HARBOR_PASSWORD }}
-        
+          echo Build number is ${{ steps.get-tag.outputs.tag }}
+      
       - name: Files and images Cleanup 
         run: |
           docker image prune -a -f 
