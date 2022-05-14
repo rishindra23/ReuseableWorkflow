@@ -23,10 +23,6 @@ on:
         required: true
       HARBOR_PASSWORD:
         required: true
-      github_token:
-        required: true
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
