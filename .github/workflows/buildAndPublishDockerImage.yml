@@ -18,9 +18,9 @@ on:
       CHART_REPO_NAME:
         required: true
         type: string
-	  REPO_URL:
-	    required: true
-		type: string
+      REPO_URL:
+        required: true
+	type: string
     secrets:
       HARBOR_USERNAME:
         required: true
