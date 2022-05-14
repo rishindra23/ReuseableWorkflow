@@ -50,7 +50,7 @@ jobs:
       - name: Login to Harbor
         uses: docker/login-action@v1
         with:
-          registry: harbor1.metabob.com
+          registry: harbor.metabob.com
           username: ${{ secrets.HARBOR_USERNAME }}
           password: ${{ secrets.HARBOR_PASSWORD }} 
 
