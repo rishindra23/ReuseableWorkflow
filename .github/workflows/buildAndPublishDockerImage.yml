@@ -68,7 +68,7 @@ jobs:
           
       - name: Tag Docker Image and Push to Harbor
         run: |
-          docker tag ${inputs.APP_NAME} harbor.metabob.com/${{inputs.PROJECT_NAME}}/${{inputs.REPO_NAME}}:${{ steps.get-tag.outputs.tag }}
+          docker tag ${{inputs.APP_NAME}} harbor.metabob.com/${{inputs.PROJECT_NAME}}/${{inputs.REPO_NAME}}:${{ steps.get-tag.outputs.tag }}
           docker push harbor.metabob.com/${{inputs.PROJECT_NAME}}/${{inputs.REPO_NAME}}:${{ steps.get-tag.outputs.tag }} 
             
           
