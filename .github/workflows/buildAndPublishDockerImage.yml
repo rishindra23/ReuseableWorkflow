@@ -21,6 +21,9 @@ on:
       REPO_URL:
         required: true
         type: string
+      VALUES_YAML:
+        required: true
+        type: string  
     secrets:
       HARBOR_USERNAME:
         required: true
@@ -82,7 +85,7 @@ jobs:
       - name: Updating Helm Chart Values.yaml file
         uses: MetabobProject/helm-set-image-tag-action@main
         with:
-          values_files: ${{inputs.CHART_NAME}}/values-integration.yaml
+          values_files: ${{inputs.CHART_NAME}}/${{inputs.VALUES_YAML}}
           tag_keys: .image.tag
           tag_value: ${{ steps.get-tag.outputs.tag }}
           
